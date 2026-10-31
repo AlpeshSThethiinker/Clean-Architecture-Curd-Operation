@@ -9,6 +9,7 @@ namespace infrastructure.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -21,6 +22,10 @@ namespace infrastructure.Data
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Order>()
+              .Property(p => p.OrderPrice)
+              .HasPrecision(18, 2);
         }
 
     }

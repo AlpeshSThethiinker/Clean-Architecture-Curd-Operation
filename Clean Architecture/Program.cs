@@ -11,11 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 //added ApplicationDbContext on the below
 builder.Services.AddDbContext<ApplicationDbContext>
-    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("infrastructure")));
 
+
+
+// added services and repositry in the program.cs that means i register the services in the main file
 builder.Services.AddScoped<IProductService, ProductService>();
-
 builder.Services.AddScoped<IProductRepositry, ProductRepositry>();
+
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepositry, OrderRepositry>();
 
 //builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
